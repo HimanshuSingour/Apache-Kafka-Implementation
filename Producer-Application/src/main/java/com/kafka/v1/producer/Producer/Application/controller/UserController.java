@@ -27,7 +27,7 @@ public class UserController {
     ResponseEntity<UserEntity> save(@RequestBody UserEntity userEntity) {
         UserEntity response = userService.saveData(userEntity);
         kafkaTemplate.send(TOPIC, response);
-        log.info("Data Has Been Send To The Kafka Topic Name : {} " , TOPIC);
+        log.info("Data Has Been Send To The Kafka Topic Name : {} of {} , {} , {}" , TOPIC , userEntity.getUserId() , userEntity.getUserName() , userEntity.getUserEmail());
         return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }
 
